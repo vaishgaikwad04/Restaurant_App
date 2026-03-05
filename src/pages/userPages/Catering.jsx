@@ -1,64 +1,88 @@
 import React, { useEffect } from "react";
-import colors from "../../Colors";
 
 const Catering = () => {
   const cateringImages = [
-    "https://cdn.prod.website-files.com/6853e980ebd4ddbff1249c43/6855275578c90b26d89b1681_elegantna-dekoracja-przyjecia-slubnego%201.avif",
-    "https://cdn.prod.website-files.com/6853e980ebd4ddbff1249c43/68552755860d1da7b25fe49a_pasztet-ozdobiony-ogorkami-i-marchewka-oraz-dzbanek-z-kompotem%201.avif",
-    "https://cdn.prod.website-files.com/6853e980ebd4ddbff1249c43/68552755e2a805a48bdd3e4f_al-elmes-ULHxWq8reao-unsplash%201.avif",
-    "https://cdn.prod.website-files.com/6853e980ebd4ddbff1249c43/68552755ad69905a95544715_pasztet-ozdobiony-ogorkami-i-marchewka-oraz-dzbanek-z-kompotem%202.avif",
+    {
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9WPLsU9scJUZZT9wCI5QRMt9OSAFHhox1Bw&s",
+      title: "Wedding Catering",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1528605248644-14dd04022da1",
+      title: "Corporate Events",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
+      title: "Private Parties",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
+      title: "Special Celebrations",
+    },
   ];
 
-  // Scroll reveal
+  // Scroll animation
   useEffect(() => {
-    const elements = document.querySelectorAll(".reveal-catering");
+    const cards = document.querySelectorAll(".reveal-card");
+
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry, index) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setTimeout(() => {
-              entry.target.classList.add("active");
-            }, index * 150); // stagger
-            observer.unobserve(entry.target);
+            entry.target.classList.add("active");
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.2 }
     );
-    elements.forEach((el) => observer.observe(el));
+
+    cards.forEach((card) => observer.observe(card));
   }, []);
 
   return (
-    <section className="py-24 px-6 lg:px-20">
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+    <section className="w-full py-24 bg-gray-50 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
 
-        {/* LEFT CONTENT */}
-        <div className="space-y-8 reveal-catering">
-          <h1 className={`text-4xl md:text-5xl font-semibold text-${colors.textPrimary} leading-tight max-w-xl`}>
-            Seasonal catering <br /> for every celebration
-          </h1>
+        {/* Heading */}
+        <div className="text-center mb-16 reveal-card">
+          <h2 className="text-5xl font-semibold tracking-wide">
+            Catering Services
+          </h2>
 
-          <p className={`text-${colors.textSecondary} text-lg leading-relaxed`}>
-            Whether you're hosting an intimate dinner or a large celebration,
-            our team brings seasonal flavor and refined service to your table.
+          <p className="mt-4 text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            From intimate gatherings to grand celebrations, we bring our
+            signature flavors and exceptional hospitality to your special
+            events.
           </p>
-
-          <button className="bg-black text-white px-7 py-4 rounded-md font-medium hover:opacity-90 transition duration-300">
-            Make reservation
-          </button>
         </div>
 
-        {/* RIGHT IMAGES */}
-        <div className="grid grid-cols-2 gap-6">
-          {cateringImages.map((img, index) => (
-            <img
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          {cateringImages.map((item, index) => (
+            <div
               key={index}
-              src={img}
-              alt={`Catering ${index + 1}`}
-              className="rounded-2xl shadow-md w-full h-48 object-cover reveal-catering"
-            />
+              className="reveal-card relative group overflow-hidden rounded-2xl shadow-xl"
+              style={{ transitionDelay: `${index * 120}ms` }}
+            >
+              {/* Image */}
+              <img
+                src={item.img}
+                alt="catering"
+                className="w-full h-80 object-cover transform group-hover:scale-125 group-hover:rotate-1 transition duration-700"
+              />
+
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition duration-500"></div>
+
+              {/* Text */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <h3 className="text-white text-2xl font-semibold opacity-0 translate-y-10 group-hover:translate-y-0 group-hover:opacity-100 transition duration-500">
+                  {item.title}
+                </h3>
+              </div>
+            </div>
           ))}
         </div>
+
       </div>
     </section>
   );

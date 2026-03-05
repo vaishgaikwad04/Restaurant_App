@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import { FaLeaf, FaPepperHot } from "react-icons/fa";
 import Hero from "../../components/ui/Hero";
 import Contact from "./Contact";
-import Circle from "../../components/ui/Circle";
 
 const SubMenu = () => {
   const [activeTab, setActiveTab] = useState("Starters");
@@ -112,12 +111,6 @@ const SubMenu = () => {
 
   return (
     <section className="w-full">
-      {/* Circle button floating */}
-      <Circle
-        onClickScroll={() =>
-          menuRef.current?.scrollIntoView({ behavior: "smooth" })
-        }
-      />
 
       {/* Hero Section */}
       <div className="relative">

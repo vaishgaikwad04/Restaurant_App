@@ -172,3 +172,14 @@
   box-shadow: 0 0 0 2px rgba(31,31,31,0.3);
   outline: none;
 }
+
+.reveal-card {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  transition: all 0.9s ease;
+}
+
+.reveal-card.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}

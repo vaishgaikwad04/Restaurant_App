@@ -15,84 +15,113 @@ const Header = () => {
   };
 
   return (
-    <header className="w-full bg-white">
-      <div className="flex items-center justify-between px-8 py-4">
+    <header className="w-full bg-white sticky top-0 z-50 shadow-sm">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
 
-        {/* LEFT SIDE (Logo + Nav) */}
-        <div className="flex items-center gap-12">
+        {/* Logo */}
+        <Link
+          to="/"
+          className="text-2xl font-bold tracking-widest text-gray-800"
+        >
+          THYME
+        </Link>
 
-          {/* Logo */}
-          <Link to="/" className="text-gray-800 text-2xl font-semibold">
-            THYME
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-10 text-gray-700 text-sm font-medium">
+
+          <button
+            onClick={() => handleScroll("featuresSection")}
+            className="relative group"
+          >
+            About
+            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-800 transition-all duration-300 group-hover:w-full"></span>
+          </button>
+
+          <Link to="/menu" className="relative group">
+            Menu
+            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-800 transition-all duration-300 group-hover:w-full"></span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6 text-gray-600 font-medium text-sm">
+          <button
+            onClick={() => handleScroll("faqSection")}
+            className="relative group"
+          >
+            FAQ
+            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-800 transition-all duration-300 group-hover:w-full"></span>
+          </button>
 
-            <button
-              onClick={() => handleScroll("featuresSection")}
-              className="hover:text-gray-800 hover:-translate-y-1 transition-all duration-300"
-            >
-              About
-            </button>
+          <Link to="/gallery" className="relative group">
+            Gallery
+            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-800 transition-all duration-300 group-hover:w-full"></span>
+          </Link>
 
-            <Link
-              to="/menu"
-              className="hover:text-gray-800 hover:-translate-y-1 transition-all duration-300"
-            >
-              Menu
-            </Link>
+          <button
+            onClick={() => handleScroll("contactSection")}
+            className="relative group"
+          >
+            Contact
+            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-800 transition-all duration-300 group-hover:w-full"></span>
+          </button>
 
-            <button
-              onClick={() => handleScroll("faqSection")}
-              className="hover:text-gray-800 hover:-translate-y-1 transition-all duration-300"
-            >
-              FAQ
-            </button>
+          {/* CTA Button */}
+          <button
+            onClick={() => handleScroll("contactSection")}
+            className="bg-black text-white px-5 py-2 rounded-md hover:bg-gray-900 transition"
+          >
+            Book Table
+          </button>
 
-            <Link
-              to="/gallery"
-              className="hover:text-gray-800 hover:-translate-y-1 transition-all duration-300"
-            >
-              Gallery
-            </Link>
-
-            <button
-              onClick={() => handleScroll("contactSection")}
-              className="hover:text-gray-800 hover:-translate-y-1 transition-all duration-300"
-            >
-              Contact
-            </button>
-
-          </nav>
-        </div>
+        </nav>
 
         {/* Hamburger */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden text-2xl text-gray-700"
+          className="md:hidden flex flex-col gap-1"
         >
-          ☰
+          <span className="w-6 h-[2px] bg-gray-800"></span>
+          <span className="w-6 h-[2px] bg-gray-800"></span>
+          <span className="w-6 h-[2px] bg-gray-800"></span>
         </button>
 
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden flex flex-col items-center gap-6 pb-6 text-gray-700 font-medium">
+      <div
+        className={`md:hidden bg-white transition-all duration-300 overflow-hidden ${
+          isOpen ? "max-h-96 py-6" : "max-h-0"
+        }`}
+      >
+        <div className="flex flex-col items-center gap-6 text-gray-700 font-medium">
 
-          <button onClick={() => handleScroll("featuresSection")}>About</button>
+          <button onClick={() => handleScroll("featuresSection")}>
+            About
+          </button>
 
-          <Link to="/menu" onClick={() => setIsOpen(false)}>Menu</Link>
+          <Link to="/menu" onClick={() => setIsOpen(false)}>
+            Menu
+          </Link>
 
-          <button onClick={() => handleScroll("faqSection")}>FAQ</button>
+          <button onClick={() => handleScroll("faqSection")}>
+            FAQ
+          </button>
 
-          <Link to="/gallery" onClick={() => setIsOpen(false)}>Gallery</Link>
+          <Link to="/gallery" onClick={() => setIsOpen(false)}>
+            Gallery
+          </Link>
 
-          <button onClick={() => handleScroll("contactSection")}>Contact</button>
+          <button onClick={() => handleScroll("contactSection")}>
+            Contact
+          </button>
+
+          <button
+            onClick={() => handleScroll("contactSection")}
+            className="bg-black text-white px-6 py-2 rounded-md"
+          >
+            Book Table
+          </button>
 
         </div>
-      )}
+      </div>
     </header>
   );
 };

@@ -25,23 +25,36 @@ const HomePage = () => {
     setReservationData({ ...reservationData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Reservation Data:", reservationData);
-    toast.success("Reservation successful! We look forward to seeing you.");
+ const handleSubmit = (e) => {
+  e.preventDefault();
 
-    setReservationData({
-      name: "",
-      email: "",
-      phone: "",
-      guests: 1,
-      date: "",
-      time: "",
-      requests: "",
-    });
-    setIsModalOpen(false);
-  };
+  // Get existing reservations from localStorage
+  const existingReservations =
+    JSON.parse(localStorage.getItem("reservations")) || [];
 
+  // Add new reservation
+  const updatedReservations = [...existingReservations, reservationData];
+
+  // Save back to localStorage
+  localStorage.setItem("reservations", JSON.stringify(updatedReservations));
+
+  console.log("Reservation Data:", reservationData);
+
+  toast.success("Reservation successful! We look forward to seeing you.");
+
+  // Reset form
+  setReservationData({
+    name: "",
+    email: "",
+    phone: "",
+    guests: 1,
+    date: "",
+    time: "",
+    requests: "",
+  });
+
+  setIsModalOpen(false);
+};
   // Animate modal content when modal opens
   useEffect(() => {
     if (isModalOpen) {
@@ -57,7 +70,7 @@ const HomePage = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className={`w-full transition-all duration-300 ${isModalOpen ? "filter blur-sm" : ""}`}>
+      <section id="hero-section" className={`w-full transition-all duration-300 ${isModalOpen ? "filter blur-sm" : ""}`}>
         <Hero
           HeadingTop="Seasonal flavors &"
           headingBottom="timeless taste"

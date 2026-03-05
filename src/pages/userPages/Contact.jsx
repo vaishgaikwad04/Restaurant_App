@@ -76,7 +76,7 @@ const Contact = () => {
 
           <button
             onClick={() => navigate("/home")}
-            className="bg-[#2d2622] text-white px-[34px] py-[16px] rounded-[10px] text-[15px] hover:opacity-90 transition duration-300"
+            className="bg-black text-white px-[34px] py-[16px] rounded-[10px] text-[15px] hover:opacity-90 transition duration-300"
           >
             Make a reservation
           </button>

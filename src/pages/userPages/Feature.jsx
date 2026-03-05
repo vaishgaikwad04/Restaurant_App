@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import colors from "../../Colors";
-import Contact from "./Contact";
 import { useNavigate } from "react-router-dom";
 
 const Feature = () => {
@@ -90,7 +89,6 @@ const Feature = () => {
 
       </div>
 
-      <Contact />
     </section>
   );
 };
