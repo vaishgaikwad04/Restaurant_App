@@ -1,80 +1,99 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleClick = () => {
-    navigate("/"); // Go to home page
+  const handleScroll = (sectionId) => {
+    navigate("/");
     setTimeout(() => {
-      const el = document.getElementById("featuresSection");
+      const el = document.getElementById(sectionId);
       el?.scrollIntoView({ behavior: "smooth" });
-    }, 100); // small delay so the section exists
+    }, 100);
+    setIsOpen(false);
   };
 
-  const handleContactClick = () => {
-    navigate("/"); // Go to home page
-    setTimeout(() => {
-      const el = document.getElementById("contactSection");
-      el?.scrollIntoView({ behavior: "smooth" });
-    }, 100); // small delay so the section exists
-  };
-
-  const handleFeatureClick = () => {
-    navigate("/"); // Go to home page
-    setTimeout(() => {
-      const el = document.getElementById("faqSection");
-      el?.scrollIntoView({ behavior: "smooth" });
-    }, 100); // small delay so the section exists
-  };
   return (
-    <>
-      <div className="flex items-inline justify-between px-8 py-4">
-        <Link to="/" className="text-gray-800 text-2xl font-semibold">
-      THYME
-        </Link>
+    <header className="w-full bg-white">
+      <div className="flex items-center justify-between px-8 py-4">
 
-        <nav className="flex items-center gap-6 text-gray-600 font-medium text-sm">
-          <Link
-            onClick={handleClick}
-            className="hover:text-gray-800 hover:-translate-y-1 transition-all duration-300 ease-out"
-            to="/"
-          >
-            About
+        {/* LEFT SIDE (Logo + Nav) */}
+        <div className="flex items-center gap-12">
+
+          {/* Logo */}
+          <Link to="/" className="text-gray-800 text-2xl font-semibold">
+            THYME
           </Link>
 
-          <Link
-            className="hover:text-gray-800 hover:-translate-y-1 transition-all duration-300 ease-out"
-            to="/menu"
-          >
-            Menu
-          </Link>
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-6 text-gray-600 font-medium text-sm">
 
-          <Link
-            onClick={handleFeatureClick}
-            className="hover:text-gray-800 hover:-translate-y-1  transition-all duration-300 ease-out"
-            to="/"
-          >
-            Faq
-          </Link>
+            <button
+              onClick={() => handleScroll("featuresSection")}
+              className="hover:text-gray-800 hover:-translate-y-1 transition-all duration-300"
+            >
+              About
+            </button>
 
-          <Link
-            className="hover:text-gray-800 hover:-translate-y-1  transition-all duration-300 ease-out"
-            to="/gallery"
-          >
-            Gallery
-          </Link>
+            <Link
+              to="/menu"
+              className="hover:text-gray-800 hover:-translate-y-1 transition-all duration-300"
+            >
+              Menu
+            </Link>
 
-          <Link
-            onClick={handleContactClick}
-            className="hover:text-gray-800 hover:-translate-y-1  transition-all duration-300 ease-out"
-            to="/"
-          >
-            Contact
-          </Link>
-        </nav>
+            <button
+              onClick={() => handleScroll("faqSection")}
+              className="hover:text-gray-800 hover:-translate-y-1 transition-all duration-300"
+            >
+              FAQ
+            </button>
+
+            <Link
+              to="/gallery"
+              className="hover:text-gray-800 hover:-translate-y-1 transition-all duration-300"
+            >
+              Gallery
+            </Link>
+
+            <button
+              onClick={() => handleScroll("contactSection")}
+              className="hover:text-gray-800 hover:-translate-y-1 transition-all duration-300"
+            >
+              Contact
+            </button>
+
+          </nav>
+        </div>
+
+        {/* Hamburger */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden text-2xl text-gray-700"
+        >
+          ☰
+        </button>
+
       </div>
-    </>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="md:hidden flex flex-col items-center gap-6 pb-6 text-gray-700 font-medium">
+
+          <button onClick={() => handleScroll("featuresSection")}>About</button>
+
+          <Link to="/menu" onClick={() => setIsOpen(false)}>Menu</Link>
+
+          <button onClick={() => handleScroll("faqSection")}>FAQ</button>
+
+          <Link to="/gallery" onClick={() => setIsOpen(false)}>Gallery</Link>
+
+          <button onClick={() => handleScroll("contactSection")}>Contact</button>
+
+        </div>
+      )}
+    </header>
   );
 };
 
