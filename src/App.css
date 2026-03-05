@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* IMAGE OPEN FROM TOP */
+@keyframes revealTop {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.reveal-top {
+  animation: revealTop 1.3s ease forwards;
+}
+
+/* IMAGE ZOOM */
+@keyframes heroZoom {
+  0% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.hero-img {
+  animation: heroZoom 2s ease forwards;
+}
+
+/* TEXT SLIDE UP */
+@keyframes slideUpStrong {
+  0% {
+    opacity: 0;
+    transform: translateY(70px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideUp1 {
+  animation: slideUpStrong 1s ease forwards;
+}
+
+.animate-slideUp2 {
+  animation: slideUpStrong 1s ease 0.4s forwards;
+}
+
+.animate-slideUp3 {
+  animation: slideUpStrong 1s ease 0.7s forwards;
+}
+
+.animate-slideUp4 {
+  animation: slideUpStrong 1s ease 1s forwards;
+}
+
+
+/* Add this in your global CSS or a module */
+
+.reveal,
+.reveal-img {
+  opacity: 0;
+  transform: translateY(50px) scale(0.8) rotateX(15deg);
+  transition: all 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.reveal.active,
+.reveal-img.active {
+  opacity: 1;
+  transform: translateY(0) scale(1) rotateX(0deg);
+}
+
+/* Optional floating effect for chef image */
+.float-chef {
+  animation: float 4s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+  0% { transform: translateY(0) rotateX(0deg); }
+  50% { transform: translateY(-20px) rotateX(3deg); }
+  100% { transform: translateY(0) rotateX(0deg); }
+}
+
+/* Strong scroll reveal */
+.reveal-contact {
+  opacity: 0;
+  transform: translateY(60px) scale(0.85) rotateX(10deg);
+  transition: all 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.reveal-contact.active {
+  opacity: 1;
+  transform: translateY(0) scale(1) rotateX(0deg);
+}
+
+/* Floating effect for images */
+.float-contact-img {
+  animation: floatContact 5s ease-in-out infinite alternate;
+}
+
+@keyframes floatContact {
+  0% { transform: translateY(0) rotateX(0deg); }
+  50% { transform: translateY(-15px) rotateX(3deg); }
+  100% { transform: translateY(0) rotateX(0deg); }
+}
+
+/* Strong scroll reveal */
+.reveal-catering {
+  opacity: 0;
+  transform: translateY(60px) scale(0.85) rotateX(10deg);
+  transition: all 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.reveal-catering.active {
+  opacity: 1;
+  transform: translateY(0) scale(1) rotateX(0deg);
+}
+
+/* Footer scroll reveal */
+.reveal-footer {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95) rotateX(5deg);
+  transition: all 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.reveal-footer.active {
+  opacity: 1;
+  transform: translateY(0) scale(1) rotateX(0deg);
+}
+/* Modal content reveal */
+.reveal-modal {
+  opacity: 0;
+  transform: translateY(50px) scale(0.95);
+  transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.reveal-modal.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Input focus animation */
+.input-field {
+  transition: all 0.3s ease;
+}
+
+.input-field:focus {
+  border-color: #1f1f1f;
+  box-shadow: 0 0 0 2px rgba(31,31,31,0.3);
+  outline: none;
+}
