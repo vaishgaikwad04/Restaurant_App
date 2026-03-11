@@ -20,35 +20,40 @@ const Catering = () => {
     },
   ];
 
-  // Scroll animation
   useEffect(() => {
     const cards = document.querySelectorAll(".reveal-card");
 
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries, observer) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("active");
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.2 }
+      {
+        threshold: 0.25,
+        rootMargin: "0px 0px -80px 0px",
+      }
     );
 
     cards.forEach((card) => observer.observe(card));
+
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="w-full py-24 bg-gray-50 overflow-hidden">
+    <section className="w-full py-24 bg-gray-50 dark:bg-black overflow-hidden transition">
       <div className="max-w-7xl mx-auto px-6">
 
         {/* Heading */}
         <div className="text-center mb-16 reveal-card">
-          <h2 className="text-5xl font-semibold tracking-wide">
+          <h2 className="text-5xl font-semibold tracking-wide text-gray-900 dark:text-white">
             Catering Services
           </h2>
 
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-4 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
             From intimate gatherings to grand celebrations, we bring our
             signature flavors and exceptional hospitality to your special
             events.
@@ -63,22 +68,24 @@ const Catering = () => {
               className="reveal-card relative group overflow-hidden rounded-2xl shadow-xl"
               style={{ transitionDelay: `${index * 120}ms` }}
             >
+
               {/* Image */}
               <img
                 src={item.img}
                 alt="catering"
-                className="w-full h-80 object-cover transform group-hover:scale-125 group-hover:rotate-1 transition duration-700"
+                className="w-full h-80 object-cover transform group-hover:scale-125 group-hover:rotate-1 transition duration-700 dark:brightness-90"
               />
 
               {/* Overlay */}
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition duration-500"></div>
 
-              {/* Text */}
+              {/* Title */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <h3 className="text-white text-2xl font-semibold opacity-0 translate-y-10 group-hover:translate-y-0 group-hover:opacity-100 transition duration-500">
                   {item.title}
                 </h3>
               </div>
+
             </div>
           ))}
         </div>

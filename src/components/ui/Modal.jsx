@@ -7,14 +7,20 @@ const Modal = ({ isOpen, onClose, children }) => {
     const onEsc = (e) => {
       if (e.key === "Escape") onClose();
     };
+
     if (isOpen) window.addEventListener("keydown", onEsc);
+
     return () => window.removeEventListener("keydown", onEsc);
   }, [isOpen, onClose]);
 
   // Prevent background scroll
   useEffect(() => {
-    if (isOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
     return () => {
       document.body.style.overflow = "";
     };
@@ -24,30 +30,53 @@ const Modal = ({ isOpen, onClose, children }) => {
 
   return ReactDOM.createPortal(
     <>
-      {/* Background overlay */}
+      {/* Overlay */}
       <div
-        className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+        className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm dark:bg-black/70"
         onClick={onClose}
       />
 
-      {/* Modal content */}
+      {/* Modal wrapper */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+
+        {/* Modal box */}
         <div
-          className="bg-white rounded-xl shadow-xl max-w-3xl w-full p-6 relative"
-          onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+          className="
+            relative
+            w-full
+            max-w-2xl
+            max-h-[90vh]
+            overflow-y-auto
+            p-6
+            rounded-xl
+            shadow-xl
+            bg-white
+            dark:bg-[#111111]
+            dark:border dark:border-gray-800
+            transition-colors duration-300
+          "
+          onClick={(e) => e.stopPropagation()}
         >
-          {/* Close Button */}
+
+          {/* Close button */}
           <button
             onClick={onClose}
             aria-label="Close modal"
-            className="absolute top-4 right-4 text-gray-500 hover:text-gray-900 text-2xl"
+            className="
+              absolute top-4 right-4 text-2xl
+              text-gray-500 hover:text-gray-900
+              dark:text-gray-400 dark:hover:text-white
+              transition
+            "
           >
             &times;
           </button>
 
-          {/* Modal Content */}
+          {/* Content */}
           {children}
+
         </div>
+
       </div>
     </>,
     document.body

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Hero from "../../components/ui/Hero";
-import Contact from "./Contact";
 
 const Gallery = () => {
   const images = [
@@ -22,11 +21,17 @@ const Gallery = () => {
 
   const closeModal = () => setIsOpen(false);
 
-  const prevImage = () => setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  const nextImage = () => setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  const prevImage = () =>
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+
+  const nextImage = () =>
+    setCurrentIndex((prev) =>
+      prev === images.length - 1 ? 0 : prev + 1
+    );
 
   return (
-    <div>
+    <div className="bg-white dark:bg-black transition">
+
       <Hero
         HeadingTop="The atmosphere"
         headingBottom="behind the flavor"
@@ -35,8 +40,12 @@ const Gallery = () => {
       />
 
       <div id="gallerySection" className="max-w-7xl mx-auto px-12 py-16">
-        <h1 className="text-4xl font-semibold mb-4 text-center">Explore our gallery</h1>
-        <h2 className="text-gray-600 mb-8 text-center">
+
+        <h1 className="text-4xl font-semibold mb-4 text-center text-gray-900 dark:text-white">
+          Explore our gallery
+        </h1>
+
+        <h2 className="text-gray-600 dark:text-gray-400 mb-8 text-center">
           Step into our world — a space made for gathering, tasting, and staying a while.
         </h2>
 
@@ -50,30 +59,39 @@ const Gallery = () => {
               <img
                 src={img}
                 alt={`Gallery image ${index + 1}`}
-                className="w-full object-cover transform transition-transform duration-500 hover:scale-110"
+                className="w-full object-cover transform transition-transform duration-500 hover:scale-110 dark:brightness-90"
               />
+
               <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
             </div>
           ))}
         </section>
+
       </div>
 
       {/* Modal */}
       {isOpen && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+
           <button
             onClick={closeModal}
             className="absolute top-5 right-5 text-white text-2xl font-bold"
           >
             ×
           </button>
+
           <button
             onClick={prevImage}
             className="absolute left-5 text-white text-3xl font-bold"
           >
             ‹
           </button>
-          <img src={images[currentIndex]} className="max-h-[80%] max-w-[80%] object-contain" />
+
+          <img
+            src={images[currentIndex]}
+            className="max-h-[80%] max-w-[80%] object-contain rounded-lg"
+          />
+
           <button
             onClick={nextImage}
             className="absolute right-5 text-white text-3xl font-bold"
@@ -81,23 +99,24 @@ const Gallery = () => {
             ›
           </button>
 
-          {/* Bottom Thumbnails */}
+          {/* Thumbnails */}
           <div className="absolute bottom-10 flex gap-4 overflow-x-auto px-5">
             {images.map((img, idx) => (
               <img
                 key={idx}
                 src={img}
                 className={`h-20 w-20 object-cover rounded-lg cursor-pointer border-2 ${
-                  idx === currentIndex ? "border-white" : "border-transparent"
+                  idx === currentIndex
+                    ? "border-white"
+                    : "border-transparent"
                 }`}
                 onClick={() => setCurrentIndex(idx)}
               />
             ))}
           </div>
+
         </div>
       )}
-
-      <Contact />
     </div>
   );
 };

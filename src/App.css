@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @keyframes fadeUp {
   0% {
@@ -11,10 +12,13 @@
   }
 }
 
-
 @keyframes spin-slow {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .animate-spin-slow {
@@ -77,7 +81,6 @@
   animation: slideUpStrong 1s ease 1s forwards;
 }
 
-
 /* Add this in your global CSS or a module */
 
 .reveal,
@@ -93,15 +96,16 @@
   transform: translateY(0) scale(1) rotateX(0deg);
 }
 
-/* Optional floating effect for chef image */
-.float-chef {
-  animation: float 4s ease-in-out infinite alternate;
-}
-
 @keyframes float {
-  0% { transform: translateY(0) rotateX(0deg); }
-  50% { transform: translateY(-20px) rotateX(3deg); }
-  100% { transform: translateY(0) rotateX(0deg); }
+  0% {
+    transform: translateY(0) rotateX(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotateX(3deg);
+  }
+  100% {
+    transform: translateY(0) rotateX(0deg);
+  }
 }
 
 /* Strong scroll reveal */
@@ -122,9 +126,15 @@
 }
 
 @keyframes floatContact {
-  0% { transform: translateY(0) rotateX(0deg); }
-  50% { transform: translateY(-15px) rotateX(3deg); }
-  100% { transform: translateY(0) rotateX(0deg); }
+  0% {
+    transform: translateY(0) rotateX(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotateX(3deg);
+  }
+  100% {
+    transform: translateY(0) rotateX(0deg);
+  }
 }
 
 /* Strong scroll reveal */
@@ -169,7 +179,7 @@
 
 .input-field:focus {
   border-color: #1f1f1f;
-  box-shadow: 0 0 0 2px rgba(31,31,31,0.3);
+  box-shadow: 0 0 0 2px rgba(31, 31, 31, 0.3);
   outline: none;
 }
 
@@ -177,6 +187,20 @@
   opacity: 0;
   transform: translateY(60px) scale(0.95);
   transition: all 0.9s ease;
+}
+
+.reveal-card.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+html {
+  scroll-behavior: smooth;
+}
+
+.reveal-card {
+  opacity: 0;
+  transform: translateY(80px) scale(0.95);
+  transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal-card.active {

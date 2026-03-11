@@ -1,13 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { FaLeaf, FaPepperHot } from "react-icons/fa";
 import Hero from "../../components/ui/Hero";
-import Contact from "./Contact";
 
 const SubMenu = () => {
   const [activeTab, setActiveTab] = useState("Starters");
-
-  // Ref to scroll to menu section
-  const menuRef = useRef(null);
 
   const menuData = {
     Starters: [
@@ -39,6 +35,7 @@ const SubMenu = () => {
         badge: { text: "Vegan", color: "green", icon: "leaf" },
       },
     ],
+
     Mains: [
       {
         title: "Grilled Salmon",
@@ -53,32 +50,8 @@ const SubMenu = () => {
         img: "https://cdn.prod.website-files.com/685662e1a30070647f211940/6856667cc8fa95412a89bd99_105902%20(1).jpg",
         badge: { text: "Vegan", color: "green", icon: "leaf" },
       },
-       {
-    title: "Grilled Salmon",
-    price: "$18",
-    desc: "Fresh salmon fillet grilled to perfection, served with lemon butter sauce.",
-    img: "https://cdn.prod.website-files.com/685662e1a30070647f211940/6856705e92ce4944e3c16421_163922%20(1)-p-500.jpg",
-  },
-  {
-    title: "Vegan Pasta",
-    price: "$15",
-    desc: "Pasta with fresh vegetables and vegan pesto sauce.",
-    img: "https://cdn.prod.website-files.com/685662e1a30070647f211940/685670dce3cef5056aab51b9_pexels-harry-dona-2338407%20(1)-p-500.jpg",
-    badge: { text: "Vegan", color: "green", icon: "leaf" },
-  },
-  {
-    title: "Ribeye Steak",
-    price: "$22",
-    desc: "Juicy ribeye steak grilled to your liking, served with garlic butter and roasted vegetables.",
-    img: "https://cdn.prod.website-files.com/685662e1a30070647f211940/6856705e92ce4944e3c16421_163922%20(1)-p-500.jpg",
-  },
-  {
-    title: "Chicken Marsala",
-    price: "$19",
-    desc: "Pan-seared chicken breast with a rich mushroom and Marsala wine sauce.",
-    img: "https://cdn.prod.website-files.com/685662e1a30070647f211940/6856672ad163ffbef45cd376_6009%20(1)-p-500.jpg",
-  },
     ],
+
     Desserts: [
       {
         title: "Chocolate Lava Cake",
@@ -93,6 +66,7 @@ const SubMenu = () => {
         img: "https://cdn.prod.website-files.com/685662e1a30070647f211940/685670fbddb960d00f041596_pexels-lulizler-7432991-p-500.jpg",
       },
     ],
+
     Drinks: [
       {
         title: "Cappuccino",
@@ -110,46 +84,54 @@ const SubMenu = () => {
   };
 
   return (
-    <section className="w-full">
+    <section className="w-full dark:bg-black transition">
 
-      {/* Hero Section */}
-      <div className="relative">
-        <Hero
-          HeadingTop=" Seasonal &"
-          headingBottom="  Signature"
-          paragraph=" Inspired by the seasons, our menu highlights fresh
-              ingredients, bold flavors, and the joy of a well
-              crafted meal."
-          image="https://cdn.prod.website-files.com/6853e980ebd4ddbff1249c43/685a686e3191cbff8a32da20_widok-szefa-kuchni-pracujacego-w-kuchni%201.avif"
-        />
-      </div>
+      {/* Hero */}
+      <Hero
+        HeadingTop=" Seasonal &"
+        headingBottom=" Signature"
+        paragraph="Inspired by the seasons, our menu highlights fresh ingredients, bold flavors, and the joy of a well crafted meal."
+        image="https://cdn.prod.website-files.com/6853e980ebd4ddbff1249c43/685a686e3191cbff8a32da20_widok-szefa-kuchni-pracujacego-w-kuchni%201.avif"
+      />
 
       {/* Menu Section */}
-      <section id="menu-section" ref={menuRef} className="w-full py-16">
+      <section id="menuSection" className="w-full py-16 scroll-mt-[80px]">
+
         {/* Tabs */}
         <div className="max-w-6xl mx-auto flex justify-center gap-10 mb-12">
+
           {Object.keys(menuData).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`relative text-lg font-medium transition-colors duration-300 cursor-pointer
-              ${activeTab === tab ? "text-[#2d2621]" : "text-[#9c948c] hover:text-[#2d2621]"}`}
+              className={`relative text-lg font-medium transition-colors duration-300
+              ${
+                activeTab === tab
+                  ? "text-[#2d2621] dark:text-white"
+                  : "text-[#9c948c] dark:text-gray-400 hover:text-[#2d2621] dark:hover:text-white"
+              }`}
             >
               {tab}
+
               {activeTab === tab && (
-                <span className="absolute left-0 -bottom-2 w-full h-[2px] bg-[#2d2621] rounded" />
+                <span className="absolute left-0 -bottom-2 w-full h-[2px] bg-[#2d2621] dark:bg-white rounded"/>
               )}
+
             </button>
           ))}
+
         </div>
 
         {/* Menu Grid */}
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 px-6">
+
           {menuData[activeTab].map((item) => (
+
             <div
               key={item.title}
-              className="flex gap-5 bg-white p-4 rounded-lg transition-shadow duration-300"
+              className="flex gap-5 bg-white dark:bg-[#111111] p-4 rounded-lg shadow-sm hover:shadow-lg transition duration-300"
             >
+
               <img
                 src={item.img}
                 alt={item.title}
@@ -157,16 +139,22 @@ const SubMenu = () => {
               />
 
               <div className="flex-1">
+
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-lg font-semibold text-[#2d2621]">
+
+                  <h3 className="text-lg font-semibold text-[#2d2621] dark:text-white">
                     {item.title}
                   </h3>
-                  <span className="text-lg font-semibold text-[#2d2621]">
+
+                  <span className="text-lg font-semibold text-[#2d2621] dark:text-white">
                     {item.price}
                   </span>
+
                 </div>
 
-                <p className="text-[#7d746c] text-sm">{item.desc}</p>
+                <p className="text-[#7d746c] dark:text-gray-400 text-sm">
+                  {item.desc}
+                </p>
 
                 {item.badge && (
                   <div className="mt-4">
@@ -187,13 +175,17 @@ const SubMenu = () => {
                     </span>
                   </div>
                 )}
+
               </div>
+
             </div>
+
           ))}
+
         </div>
+
       </section>
 
-      <Contact />
     </section>
   );
 };

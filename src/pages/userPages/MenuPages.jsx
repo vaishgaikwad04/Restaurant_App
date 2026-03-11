@@ -1,6 +1,7 @@
 import React from "react";
 import MenuCard from "../../components/ui/MenuCard";
 import { useNavigate } from "react-router-dom";
+
 const MenuPages = () => {
   const navigate = useNavigate();
 
@@ -35,43 +36,50 @@ const MenuPages = () => {
     },
   ];
 
+  const handleNavigate = () => {
+    navigate("/menu");
+
+    setTimeout(() => {
+      const section = document.getElementById("menuSection");
+      section?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
+
   return (
-    <section className="bg-[#111111] py-24 px-6 lg:px-20">
+    <section className="bg-[#111111] dark:bg-black py-24 px-6 lg:px-20 transition">
       <div className="max-w-7xl mx-auto">
+
         {/* Heading */}
         <div className="mb-16 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-20">
-          <h1 className="text-4xl md:text-5xl font-semibold text-[#f5efe6] leading-tight">
+
+          <h1 className="text-4xl md:text-5xl font-semibold text-[#f5efe6] dark:text-white leading-tight">
             Explore our <br /> seasonal menu
           </h1>
 
-          <p className="text-[#cfc6bb] text-lg max-w-2xl leading-relaxed">
+          <p className="text-[#cfc6bb] dark:text-gray-400 text-lg max-w-2xl leading-relaxed">
             Crafted with ingredients at their peak — limited-time dishes
             inspired by the current harvest.
           </p>
+
         </div>
 
         {/* Grid */}
-        <div
-          onClick={() => {
-            navigate("/menu");
-            setTimeout(() => {
-              window.scrollTo({
-                top: document.body.scrollHeight / 3,
-                behavior: "smooth",
-              });
-            }, 100);
-          }}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10"
-        >
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {menuItems.map((item) => (
-            <MenuCard
+            <div
               key={item.id}
-              image={item.image}
-              title={item.title}
-              description={item.description}
-            />
+              onClick={handleNavigate}
+              className="cursor-pointer"
+            >
+              <MenuCard
+                image={item.image}
+                title={item.title}
+                description={item.description}
+              />
+            </div>
           ))}
         </div>
+
       </div>
     </section>
   );

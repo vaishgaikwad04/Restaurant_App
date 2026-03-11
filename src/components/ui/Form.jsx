@@ -1,12 +1,22 @@
 import React from "react";
 
-const InputField = ({ label, type = "text", name, value, onChange, placeholder, ...rest }) => {
+const InputField = ({
+  label,
+  type = "text",
+  name,
+  value,
+  onChange,
+  placeholder,
+  className = "",
+  ...rest
+}) => {
   return (
-    <div className="mb-4">
+    <div className="mb-4 w-full">
+
       {label && (
         <label
           htmlFor={name}
-          className="block mb-2 font-medium text-[#2b2b2b]"
+          className="block mb-2 font-medium text-[#2b2b2b] dark:text-white"
         >
           {label}
         </label>
@@ -19,23 +29,17 @@ const InputField = ({ label, type = "text", name, value, onChange, placeholder, 
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        {...rest} // <-- THIS MAKES required, min, max, etc. work
-        className={`
-          w-full
-          p-3
-          rounded-lg
-          border border-[#e0e0e0]
-          bg-[#f0e6d2]
-          text-[#2b2b2b]
-          placeholder-gray-400
-          outline-none
-          focus:border-[#2b2b2b]
-          focus:ring-2
-          focus:ring-[#1f1f1f33]
-          transition
-          duration-200
-        `}
+        {...rest}
+      className={`
+w-full p-3 rounded-lg border outline-none transition duration-200
+bg-white text-[#2b2b2b] border-[#e0e0e0]
+dark:bg-[#1a1a1a] dark:text-white dark:border-gray-700
+placeholder-gray-400 dark:placeholder-gray-500
+focus:ring-2 focus:ring-black/10 dark:focus:ring-white/10
+appearance-none
+`}
       />
+
     </div>
   );
 };

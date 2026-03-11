@@ -1,17 +1,19 @@
-import React from 'react'
-import UserRoutes from './routes/UserRoutes';
-import './App.css'
+import React from "react";
+import UserRoutes from "./routes/UserRoutes";
+import AdminRoutes from "./routes/AdminRoutes";
+import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
-
 const App = () => {
-  const role ="user";
+  const role = "user";
+  const roleAdmin = "admin";
+
   return (
     <div>
-      {role === "user" && <UserRoutes/>}
-     <ToastContainer 
+      {role === "user" && <UserRoutes />}
+      {roleAdmin === "admin" && <AdminRoutes />}
+      <ToastContainer
         position="top-right"
         autoClose={1000} // 3 seconds
         hideProgressBar={true}
@@ -19,10 +21,10 @@ const App = () => {
         closeOnClick
         pauseOnHover
         draggable
-        theme="light" 
+        theme="light"
       />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
