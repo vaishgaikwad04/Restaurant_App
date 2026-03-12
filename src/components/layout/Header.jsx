@@ -57,11 +57,16 @@ const Header = () => {
             Features
             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-800 dark:bg-white transition-all duration-300 group-hover:w-full"></span>
           </button>
-
-          <button onClick={() => navigate("/menu")} className="relative group">
+          
+          <button onClick={() => navigate("/manageBooking")} className="relative group">
+         Manage Booking
+            <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-800 dark:bg-white transition-all duration-300 group-hover:w-full"></span>
+          </button>
+           <button onClick={() => navigate("/menu")} className="relative group">
             Menu
             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-800 dark:bg-white transition-all duration-300 group-hover:w-full"></span>
           </button>
+
 
           <button onClick={() => navigate("/gallery")} className="relative group">
             Gallery

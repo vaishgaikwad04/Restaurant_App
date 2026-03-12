@@ -9,6 +9,7 @@ import MenuPage from "../pages/userPages/MenuPages";
 import About from "../pages/userPages/About";
 import Faq from "../pages/userPages/Faq";
 import ScrollToTop from "../components/ui/ScrollToTop";
+import ManageBooking from "../pages/userPages/ManageBooking";
 
 const UserRoutes = () => {
   return (
@@ -27,6 +28,7 @@ const UserRoutes = () => {
           <Route path="catering" element={<Catering />} />
           <Route path="about" element={<About />} />
           <Route path="faq" element={<Faq />} />
+            <Route path="manageBooking" element={<ManageBooking />} />
         </Route>
       </Routes>
     </Router>
