@@ -17,7 +17,9 @@ const Admin = () => {
       header: "Status",
       key: "status",
       render: (row) => (
-        <span className="text-sm font-medium">{row.status || "Pending"}</span>
+        <span className="text-sm font-medium dark:text-gray-200">
+          {row.status || "Pending"}
+        </span>
       ),
     },
 
@@ -49,31 +51,42 @@ const Admin = () => {
     { label: "Pending", value: "Pending" },
     { label: "Approved", value: "Approved" },
     { label: "Rejected", value: "Rejected" },
-      { label: "Cancelled", value: "Cancelled" },
+    { label: "Cancelled", value: "Cancelled" },
   ];
 
   useEffect(() => {
-    const storedReservations =
-      JSON.parse(localStorage.getItem("reservations")) || [];
-    setReservations(storedReservations);
-  }, []);
+  const storedReservations =
+    JSON.parse(localStorage.getItem("reservations")) || [];
+
+  const updatedReservations = storedReservations.map((item) => ({
+    ...item,
+    status: item.status || "Pending",
+  }));
+
+  setReservations(updatedReservations);
+
+  localStorage.setItem(
+    "reservations",
+    JSON.stringify(updatedReservations)
+  );
+}, []);
 
   const totalReservations = reservations.length;
 
   const totalGuests = reservations.reduce(
     (sum, item) => sum + Number(item.guests),
-    0,
+    0
   );
 
   const today = new Date().toISOString().split("T")[0];
 
   const todayReservations = reservations.filter(
-    (item) => item.date === today,
+    (item) => item.date === today
   ).length;
 
   const updateStatus = (id, status) => {
     const updatedReservations = reservations.map((item) =>
-      item.id === id ? { ...item, status } : item,
+      item.id === id ? { ...item, status } : item
     );
 
     setReservations(updatedReservations);
@@ -87,41 +100,49 @@ const Admin = () => {
       : reservations.filter((item) => (item.status || "Pending") === filter);
 
   return (
-    <div className="p-6 h-full overflow-hidden">
-      <h1 className="text-2xl font-semibold mb-6 dark:text-white">
+    <div className="p-6 h-full overflow-hidden bg-gray-100 dark:bg-black transition">
+
+      <h1 className="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">
         Admin Dashboard
       </h1>
 
       {/* Stats */}
+
       <div className="grid md:grid-cols-3 gap-6 mb-10">
-        <div className="bg-white dark:bg-[#111111] p-6 rounded-lg shadow">
+
+        <div className="bg-white dark:bg-[#111111] border border-gray-200 dark:border-gray-700 p-6 rounded-lg shadow">
           <h2 className="text-gray-500 dark:text-gray-400 text-sm">
             Total Reservations
           </h2>
-          <p className="text-3xl font-bold dark:text-white">
+          <p className="text-3xl font-bold text-gray-900 dark:text-white">
             {totalReservations}
           </p>
         </div>
 
-        <div className="bg-white dark:bg-[#111111] p-6 rounded-lg shadow">
+        <div className="bg-white dark:bg-[#111111] border border-gray-200 dark:border-gray-700 p-6 rounded-lg shadow">
           <h2 className="text-gray-500 dark:text-gray-400 text-sm">
             Total Guests
           </h2>
-          <p className="text-3xl font-bold dark:text-white">{totalGuests}</p>
+          <p className="text-3xl font-bold text-gray-900 dark:text-white">
+            {totalGuests}
+          </p>
         </div>
 
-        <div className="bg-white dark:bg-[#111111] p-6 rounded-lg shadow">
+        <div className="bg-white dark:bg-[#111111] border border-gray-200 dark:border-gray-700 p-6 rounded-lg shadow">
           <h2 className="text-gray-500 dark:text-gray-400 text-sm">
             Today's Reservations
           </h2>
-          <p className="text-3xl font-bold dark:text-white">
+          <p className="text-3xl font-bold text-gray-900 dark:text-white">
             {todayReservations}
           </p>
         </div>
+
       </div>
 
       {/* Table */}
-      <div className="bg-white dark:bg-[#111111] rounded-lg shadow p-6">
+
+      <div className="bg-white dark:bg-[#111111] border border-gray-200 dark:border-gray-700 rounded-lg shadow p-6">
+
         <Dropdown
           title="Recent Reservations"
           value={filter}
@@ -129,10 +150,12 @@ const Admin = () => {
           options={statusOptions}
         />
 
-        <div className="overflow-x-auto max-h-[460px] overflow-y-auto">
+        <div className="overflow-x-auto max-h-[460px] overflow-y-auto mt-4">
           <Table columns={columns} data={filteredReservations} />
         </div>
+
       </div>
+
     </div>
   );
 };

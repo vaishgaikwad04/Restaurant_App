@@ -1,29 +1,43 @@
-import React from "react";
-import UserRoutes from "./routes/UserRoutes";
-import AdminRoutes from "./routes/AdminRoutes";
+import React, { useEffect } from "react";
 import "./App.css";
+import { BrowserRouter } from "react-router-dom";
+import AdminRoutes from "./routes/AdminRoutes";
+import UserRoutes from "./routes/UserRoutes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 const App = () => {
-  const role = "user";
-  const roleAdmin = "admin";
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("appSettings"));
+
+    if (saved?.darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
 
   return (
-    <div>
-      {role === "user" && <UserRoutes />}
-      {roleAdmin === "admin" && <AdminRoutes />}
+    <BrowserRouter>
+   
+
+      <UserRoutes />
+      <AdminRoutes />
+
       <ToastContainer
         position="top-right"
-        autoClose={1000} // 3 seconds
-        hideProgressBar={true}
+        autoClose={2500}
+        hideProgressBar
         newestOnTop
         closeOnClick
         pauseOnHover
         draggable
-        theme="light"
+        
       />
-    </div>
+
+    </BrowserRouter>
   );
 };
 

@@ -6,7 +6,7 @@ const Table = ({ columns, data }) => {
 
       <table className="w-full text-left">
 
-        <thead className="sticky top-0 bg-white dark:bg-[#111111] z-10">
+        <thead className="sticky top-0 bg-white dark:bg-[#111111] z-10 dark:text-gray-300">
           <tr className="border-b border-gray-200 dark:border-gray-700">
 
             {columns.map((col) => (
@@ -22,7 +22,7 @@ const Table = ({ columns, data }) => {
 
           {data.length === 0 ? (
             <tr>
-              <td colSpan={columns.length} className="text-center py-6 text-gray-500">
+              <td colSpan={columns.length} className="text-center py-6 text-gray-500 dark:text-gray-300">
                 No data found
               </td>
             </tr>
@@ -31,7 +31,7 @@ const Table = ({ columns, data }) => {
             data.map((row, index) => (
               <tr
                 key={index}
-                className="border-b border-gray-100 dark:border-gray-800"
+                className="border-b border-gray-100 dark:border-gray-800 dark:text-gray-300"
               >
 
                 {columns.map((col) => (

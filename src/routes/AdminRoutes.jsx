@@ -1,19 +1,34 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Admin from "../pages/adminPages/Admin";
-import AdminDashboardLayout from "../components/layouts/adminLayout/AdminDashboardLayout";
+import { Routes, Route } from "react-router-dom";
+import ReservationManagementPage from "../pages/adminPages/ReservationManagementPage";
+import AdminLayout from "../components/layouts/adminLayout/AdminDashboardLayout";
+import Setting from "../pages/adminPages/Setting";
+import Profile from "../pages/adminPages/AdminProfile";
+import AdminLogin from "../pages/adminPages/AdminLogin";
+import AdminProtectedRoute from "../utils/AdminProtectedRoutes";
 
-function App() {
+const AdminRoutes = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/admin" element={<AdminDashboardLayout />}>
-          <Route path="adminDashboard" element={<Admin/>} />
-           </Route>
+    <Routes>
 
-      </Routes>
-    </BrowserRouter>
+      {/* LOGIN */}
+      <Route path="/login" element={<AdminLogin />} />
+
+      {/* ADMIN PANEL */}
+      <Route
+        path="/adminPanel"
+        element={
+          <AdminProtectedRoute>
+            <AdminLayout />
+          </AdminProtectedRoute>
+        }
+      >
+        <Route path="reservationManagement" element={<ReservationManagementPage />} />
+        <Route path="settings" element={<Setting />} />
+        <Route path="profile" element={<Profile />} />
+      </Route>
+
+    </Routes>
   );
-}
+};
 
-export default App;
+export default AdminRoutes;

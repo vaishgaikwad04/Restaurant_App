@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputField = ({
+const Input = ({
   label,
   type = "text",
   name,
@@ -12,7 +12,6 @@ const InputField = ({
 }) => {
   return (
     <div className="mb-4 w-full">
-
       {label && (
         <label
           htmlFor={name}
@@ -30,7 +29,7 @@ const InputField = ({
         onChange={onChange}
         placeholder={placeholder}
         {...rest}
-      className={`
+        className={`
 w-full p-3 rounded-lg border outline-none transition duration-200
 bg-white text-[#2b2b2b] border-[#e0e0e0]
 dark:bg-[#1a1a1a] dark:text-white dark:border-gray-700
@@ -39,9 +38,8 @@ focus:ring-2 focus:ring-black/10 dark:focus:ring-white/10
 appearance-none
 `}
       />
-
     </div>
   );
 };
 
-export default InputField;
+export default Input;

@@ -4,10 +4,10 @@ import Modal from "../../components/ui/Modal";
 import Hero from "../../components/ui/Hero";
 import Button from "../../components/ui/Button";
 import InputField from "../../components/ui/Form";
-import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormReservationSchema from "../../schema/FormReservationSchema";
+import { showNotification } from "../../components/ui/Notification";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -22,45 +22,95 @@ const HomePage = () => {
     resolver: yupResolver(FormReservationSchema),
   });
 
-  /* ------------------------------
-     Reservation Logic
-  ------------------------------ */
+
 
   const onSubmit = (data) => {
-    const existingReservations =
-      JSON.parse(localStorage.getItem("reservations")) || [];
-    const MAX_CAPACITY = 20;
 
-    const sameSlotReservations = existingReservations.filter(
-      (res) => res.date === data.date && res.time === data.time,
+  const existingReservations =
+    JSON.parse(localStorage.getItem("reservations")) || [];
+
+  const bookingSettings =
+    JSON.parse(localStorage.getItem("bookingLimits")) || {};
+
+  const MAX_SLOT_CAPACITY = Number(bookingSettings.maxSlotBookings ?? 4);
+  const MAX_DAILY_BOOKINGS = Number(bookingSettings.maxDailyBookings ?? 20);
+
+
+
+  const today = new Date().toISOString().split("T")[0];
+
+  const validReservations = existingReservations.filter(
+    (res) => res.date >= today
+  );
+
+
+  const sameSlotReservations = validReservations.filter(
+    (res) => res.date === data.date && res.time === data.time
+  );
+
+  const totalGuestsInSlot = sameSlotReservations.reduce(
+    (sum, res) => sum + Number(res.guests),
+    0
+  );
+
+  if (totalGuestsInSlot + Number(data.guests) > MAX_SLOT_CAPACITY) {
+
+    const remainingSeats = MAX_SLOT_CAPACITY - totalGuestsInSlot;
+
+    showNotification(
+      "error",
+      remainingSeats > 0
+        ? `Only ${remainingSeats} seats left for this slot`
+        : "This slot is fully booked"
     );
 
-    const totalGuests = sameSlotReservations.reduce(
-      (sum, res) => sum + Number(res.guests),
-      0,
+    return;
+  }
+
+
+
+  const sameDayReservations = validReservations.filter(
+    (res) => res.date === data.date
+  );
+
+  const totalGuestsToday = sameDayReservations.reduce(
+    (sum, res) => sum + Number(res.guests),
+    0
+  );
+
+  if (totalGuestsToday + Number(data.guests) > MAX_DAILY_BOOKINGS) {
+
+    const remainingSeats = MAX_DAILY_BOOKINGS - totalGuestsToday;
+
+    showNotification(
+      "error",
+      remainingSeats > 0
+        ? `Only ${remainingSeats} seats left for today`
+        : "Daily booking capacity reached"
     );
 
-    if (totalGuests + Number(data.guests) > MAX_CAPACITY) {
-      toast.error(
-        "No tables available for this time. Please select another slot.",
-      );
-      return;
-    }
+    return;
+  }
 
-    const newReservation = {
-      id: Date.now(),
-      ...data,
-    };
 
-    const updatedReservations = [...existingReservations, newReservation];
 
-    localStorage.setItem("reservations", JSON.stringify(updatedReservations));
-
-    toast.success("Reservation successful! We look forward to seeing you.");
-
-    reset();
-    setIsModalOpen(false);
+  const newReservation = {
+    id: Date.now(),
+    ...data
   };
+
+  const updatedReservations = [...existingReservations, newReservation];
+
+  localStorage.setItem("reservations", JSON.stringify(updatedReservations));
+
+  showNotification(
+    "success",
+    "Reservation successful! We look forward to seeing you."
+  );
+
+  reset();
+  setIsModalOpen(false);
+};
 
   const inputStyle = (error) =>
     `w-full p-3 rounded-lg border outline-none transition duration-200
@@ -68,10 +118,12 @@ const HomePage = () => {
     dark:bg-[#1a1a1a] dark:text-white dark:border-gray-700
     placeholder-gray-400 dark:placeholder-gray-500
     focus:ring-2 focus:ring-black/10 dark:focus:ring-white/10
+    focus:border-black dark:focus:border-white
+    dark:[color-scheme:dark]
     ${
       error
         ? "border-red-500 focus:ring-red-400"
-        : "focus:border-black dark:focus:border-white"
+        : ""
     }`;
 
   useEffect(() => {
@@ -120,7 +172,7 @@ const HomePage = () => {
       {/* Reservation Modal */}
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <div className="p-8 rounded-xl max-h-[80vh]  overflow-y-auto reveal-modal bg-white dark:bg-[#0f0f0f] transition">
+        <div className="p-8 rounded-xl max-h-[80vh] overflow-y-auto reveal-modal bg-white dark:bg-[#0f0f0f] transition">
           <h2 className="text-center text-2xl font-bold text-[#2b2b2b] dark:text-gray-200 mb-10">
             Reserve Your Table
           </h2>
@@ -129,11 +181,12 @@ const HomePage = () => {
             onSubmit={handleSubmit(onSubmit)}
             className="grid grid-cols-1 md:grid-cols-2 gap-4"
           >
+
             {/* Name */}
 
             <div>
               <InputField
-                label="Name"
+                label="Full Name"
                 {...register("name")}
                 placeholder="Enter your full name"
                 className={inputStyle(errors.name)}
@@ -265,6 +318,7 @@ const HomePage = () => {
             >
               {isSubmitting ? "Reserving..." : "Reserve Table"}
             </button>
+
           </form>
         </div>
       </Modal>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiMoon, FiSun } from "react-icons/fi";
+import { RiAdminFill } from "react-icons/ri";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -101,6 +102,17 @@ const Header = () => {
             ) : (
               <FiSun size={16} className="text-yellow-400" />
             )}
+          </button>
+           <button
+            onClick={() => navigate('/adminPanel')}
+            className="flex items-center justify-center w-9 h-9 rounded-md
+            border border-gray-300 dark:border-gray-700
+            hover:bg-gray-100 dark:hover:bg-gray-800
+            transition duration-200 dark:text-white"
+          >
+           
+            <RiAdminFill  size={16} />
+           
           </button>
 
           {/* Hamburger */}
