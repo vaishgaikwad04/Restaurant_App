@@ -26,7 +26,8 @@ const Header = () => {
   /* Load saved theme */
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) setTheme(savedTheme);
+    if (savedTheme) {}
+      setTheme(savedTheme);
   }, []);
 
   /* Apply theme */
@@ -42,7 +43,6 @@ const Header = () => {
   return (
     <header className="w-full bg-white dark:bg-black sticky top-0 z-50 shadow-sm transition">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-
         {/* Logo */}
         <div
           onClick={() => handleScroll("heroSection")}
@@ -53,42 +53,53 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-10 text-gray-700 dark:text-gray-200 text-sm font-medium">
-
-          <button onClick={() => handleScroll("featureSection")} className="relative group">
+          <button
+            onClick={() => handleScroll("featureSection")}
+            className="relative group"
+          >
             Features
             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-800 dark:bg-white transition-all duration-300 group-hover:w-full"></span>
           </button>
-          
-          <button onClick={() => navigate("/manageBooking")} className="relative group">
-         Manage Booking
+
+          <button
+            onClick={() => navigate("/manageBooking")}
+            className="relative group"
+          >
+            Manage Booking
             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-800 dark:bg-white transition-all duration-300 group-hover:w-full"></span>
           </button>
-           <button onClick={() => navigate("/menu")} className="relative group">
+          <button onClick={() => navigate("/menu")} className="relative group">
             Menu
             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-800 dark:bg-white transition-all duration-300 group-hover:w-full"></span>
           </button>
 
-
-          <button onClick={() => navigate("/gallery")} className="relative group">
+          <button
+            onClick={() => navigate("/gallery")}
+            className="relative group"
+          >
             Gallery
             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-800 dark:bg-white transition-all duration-300 group-hover:w-full"></span>
           </button>
 
-          <button onClick={() => handleScroll("faqSection")} className="relative group">
+          <button
+            onClick={() => handleScroll("faqSection")}
+            className="relative group"
+          >
             FAQ
             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-800 dark:bg-white transition-all duration-300 group-hover:w-full"></span>
           </button>
 
-          <button onClick={() => handleScroll("contactSection")} className="relative group">
+          <button
+            onClick={() => handleScroll("contactSection")}
+            className="relative group"
+          >
             Contact
             <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-gray-800 dark:bg-white transition-all duration-300 group-hover:w-full"></span>
           </button>
-
         </nav>
 
         {/* Right Controls (Theme + Mobile Menu) */}
         <div className="flex items-center gap-3">
-
           {/* Theme Toggle */}
           <button
             onClick={() => setTheme(theme === "light" ? "dark" : "light")}
@@ -98,21 +109,19 @@ const Header = () => {
             transition duration-200"
           >
             {theme === "light" ? (
-              <FiMoon size={16} />
+              <FiMoon size={16} className="text-black" />
             ) : (
               <FiSun size={16} className="text-yellow-400" />
             )}
           </button>
-           <button
-            onClick={() => navigate('/adminPanel')}
+          <button
+            onClick={() => navigate("/adminPanel")}
             className="flex items-center justify-center w-9 h-9 rounded-md
             border border-gray-300 dark:border-gray-700
             hover:bg-gray-100 dark:hover:bg-gray-800
             transition duration-200 dark:text-white"
           >
-           
-            <RiAdminFill  size={16} />
-           
+            <RiAdminFill size={16} />
           </button>
 
           {/* Hamburger */}
@@ -124,7 +133,6 @@ const Header = () => {
             <span className="w-6 h-[2px] bg-gray-800 dark:bg-white"></span>
             <span className="w-6 h-[2px] bg-gray-800 dark:bg-white"></span>
           </button>
-
         </div>
       </div>
 
@@ -135,29 +143,19 @@ const Header = () => {
         }`}
       >
         <div className="flex flex-col items-start ml-8 gap-6 text-gray-700 dark:text-gray-200 font-medium">
-
           <button onClick={() => handleScroll("featureSection")}>
             Features
           </button>
 
-          <button onClick={() => navigate("/menu")}>
-            Menu
-          </button>
+          <button onClick={() => navigate("/menu")}>Menu</button>
 
-          <button onClick={() => navigate("/gallery")}>
-            Gallery
-          </button>
+          <button onClick={() => navigate("/gallery")}>Gallery</button>
 
-          <button onClick={() => handleScroll("faqSection")}>
-            FAQ
-          </button>
+          <button onClick={() => handleScroll("faqSection")}>FAQ</button>
 
           <button onClick={() => handleScroll("contactSection")}>
             Contact
           </button>
-
-
-
         </div>
       </div>
     </header>

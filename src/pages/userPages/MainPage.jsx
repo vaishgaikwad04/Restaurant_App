@@ -1,11 +1,11 @@
 import React from "react";
 import HomePage from "./HomePage";
-import Feature from "./Feature";
-import About from "./About";
+import Feature from "./FeaturePage";
+import About from "./AboutPage";
 import MenuPage from "./MenuPages";
-import Catering from "./Catering";
-import Faq from "./Faq";
-import Contact from "./Contact";
+import Catering from "./CateringPage";
+import Faq from "./FaqPage";
+import Contact from "./ContactPage";
 
 const Home = () => {
   return (

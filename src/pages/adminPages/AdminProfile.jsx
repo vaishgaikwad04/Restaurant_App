@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { IoCameraOutline } from "react-icons/io5";
-import Input from "../../components/ui/Form";
+import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import { showNotification } from "../../components/ui/Notification";
 

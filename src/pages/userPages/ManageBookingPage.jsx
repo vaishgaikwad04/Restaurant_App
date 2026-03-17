@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from "../../components/ui/Modal";
-import InputField from "../../components/ui/Form";
+import InputField from "../../components/ui/Input";
 import { useForm } from "react-hook-form";
 
 const ManageBooking = () => {

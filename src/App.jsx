@@ -6,9 +6,7 @@ import UserRoutes from "./routes/UserRoutes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 const App = () => {
-
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("appSettings"));
 
@@ -21,8 +19,6 @@ const App = () => {
 
   return (
     <BrowserRouter>
-   
-
       <UserRoutes />
       <AdminRoutes />
 
@@ -34,9 +30,7 @@ const App = () => {
         closeOnClick
         pauseOnHover
         draggable
-        
       />
-
     </BrowserRouter>
   );
 };

@@ -125,13 +125,12 @@ const Footer = () => {
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                 className="
-      ml-6
-      p-2
-      rounded-full
-      hover:bg-[#1a1a1a]
-      transition
-      hover:scale-110
-      "
+                  ml-6
+                  p-2
+                  rounded-full
+                  hover:bg-[#1a1a1a]
+                  transition
+                  hover:scale-110"
               >
                 <FaArrowUp size={22} />
               </button>

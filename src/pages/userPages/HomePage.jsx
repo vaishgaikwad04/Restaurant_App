@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../../components/ui/Modal";
 import Hero from "../../components/ui/Hero";
 import Button from "../../components/ui/Button";
-import InputField from "../../components/ui/Form";
+import InputField from "../../components/ui/Input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormReservationSchema from "../../schema/FormReservationSchema";
