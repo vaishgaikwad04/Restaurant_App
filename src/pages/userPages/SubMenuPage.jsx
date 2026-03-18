@@ -123,7 +123,7 @@ const SubMenu = () => {
         </div>
 
         {/* Menu Grid */}
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 px-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 px-6 mb-12">
 
           {menuData[activeTab].map((item) => (
 
