@@ -26,7 +26,7 @@ const Footer = () => {
           <div className="grid md:grid-cols-3 gap-12 border-b border-[#333] dark:border-gray-800 pb-12">
             {/* Logo / About */}
             <div>
-              <h2 className="text-3xl font-semibold tracking-widest mb-4">
+              <h2  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-3xl font-semibold tracking-widest mb-4">
                 THYME
               </h2>
 

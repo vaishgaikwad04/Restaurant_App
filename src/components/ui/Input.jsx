@@ -30,12 +30,12 @@ const Input = ({
         placeholder={placeholder}
         {...rest}
         className={`
-w-full p-3 rounded-lg border outline-none transition duration-200
+w-full p-2 rounded-lg border outline-none transition duration-200
 bg-white text-[#2b2b2b] border-[#e0e0e0]
 dark:bg-[#1a1a1a] dark:text-white dark:border-gray-700
 placeholder-gray-400 dark:placeholder-gray-500
 focus:ring-2 focus:ring-black/10 dark:focus:ring-white/10
-appearance-none
+appearance-none ${className}
 `}
       />
     </div>

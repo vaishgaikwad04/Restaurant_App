@@ -22,95 +22,85 @@ const HomePage = () => {
     resolver: yupResolver(FormReservationSchema),
   });
 
-
-
   const onSubmit = (data) => {
+    const existingReservations =
+      JSON.parse(localStorage.getItem("reservations")) || [];
+    console.log(existingReservations);
 
-  const existingReservations =
-    JSON.parse(localStorage.getItem("reservations")) || [];
+    const bookingSettings =
+      JSON.parse(localStorage.getItem("bookingLimits")) || {};
 
-  const bookingSettings =
-    JSON.parse(localStorage.getItem("bookingLimits")) || {};
+    const MAX_SLOT_CAPACITY = Number(bookingSettings.tablesPerSlot ?? 4);
+    const MAX_DAILY_BOOKINGS = Number(bookingSettings.slotDuration ?? 20);
 
-  const MAX_SLOT_CAPACITY = Number(bookingSettings.maxSlotBookings ?? 4);
-  const MAX_DAILY_BOOKINGS = Number(bookingSettings.maxDailyBookings ?? 20);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-
-
-  const today = new Date().toISOString().split("T")[0];
-
-  const validReservations = existingReservations.filter(
-    (res) => res.date >= today
-  );
-
-
-  const sameSlotReservations = validReservations.filter(
-    (res) => res.date === data.date && res.time === data.time
-  );
-
-  const totalGuestsInSlot = sameSlotReservations.reduce(
-    (sum, res) => sum + Number(res.guests),
-    0
-  );
-
-  if (totalGuestsInSlot + Number(data.guests) > MAX_SLOT_CAPACITY) {
-
-    const remainingSeats = MAX_SLOT_CAPACITY - totalGuestsInSlot;
-
-    showNotification(
-      "error",
-      remainingSeats > 0
-        ? `Only ${remainingSeats} seats left for this slot`
-        : "This slot is fully booked"
+    const validReservations = existingReservations.filter(
+      (res) => res.date >= today,
     );
 
-    return;
-  }
-
-
-
-  const sameDayReservations = validReservations.filter(
-    (res) => res.date === data.date
-  );
-
-  const totalGuestsToday = sameDayReservations.reduce(
-    (sum, res) => sum + Number(res.guests),
-    0
-  );
-
-  if (totalGuestsToday + Number(data.guests) > MAX_DAILY_BOOKINGS) {
-
-    const remainingSeats = MAX_DAILY_BOOKINGS - totalGuestsToday;
-
-    showNotification(
-      "error",
-      remainingSeats > 0
-        ? `Only ${remainingSeats} seats left for today`
-        : "Daily booking capacity reached"
+    const sameSlotReservations = validReservations.filter(
+      (res) => res.date === data.date && res.time === data.time,
     );
 
-    return;
-  }
+    const totalGuestsInSlot = sameSlotReservations.reduce(
+      (sum, res) => sum + Number(res.guests),
+      0,
+    );
 
+    if (totalGuestsInSlot + Number(data.guests) > MAX_SLOT_CAPACITY) {
+      const remainingSeats = MAX_SLOT_CAPACITY - totalGuestsInSlot;
 
+      showNotification(
+        "error",
+        remainingSeats > 0
+          ? `Only ${remainingSeats} seats left for this slot`
+          : "This slot is fully booked",
+      );
 
-  const newReservation = {
-    id: Date.now(),
-    ...data
+      return;
+    }
+
+    const sameDayReservations = validReservations.filter(
+      (res) => res.date === data.date,
+    );
+
+    const totalGuestsToday = sameDayReservations.reduce(
+      (sum, res) => sum + Number(res.guests),
+      0,
+    );
+
+    if (totalGuestsToday + Number(data.guests) > MAX_DAILY_BOOKINGS) {
+      const remainingSeats = MAX_DAILY_BOOKINGS - totalGuestsToday;
+
+      showNotification(
+        "error",
+        remainingSeats > 0
+          ? `Only ${remainingSeats} seats left for today`
+          : "Daily booking capacity reached",
+      );
+
+      return;
+    }
+
+    const newReservation = {
+      id: Date.now(),
+      ...data,
+    };
+
+    const updatedReservations = [...existingReservations, newReservation];
+
+    localStorage.setItem("reservations", JSON.stringify(updatedReservations));
+
+    showNotification(
+      "success",
+      "Reservation successful! We look forward to seeing you.",
+    );
+
+    reset();
+    setIsModalOpen(false);
   };
-
-  const updatedReservations = [...existingReservations, newReservation];
-
-  localStorage.setItem("reservations", JSON.stringify(updatedReservations));
-
-  showNotification(
-    "success",
-    "Reservation successful! We look forward to seeing you."
-  );
-
-  reset();
-  setIsModalOpen(false);
-};
 
   const inputStyle = (error) =>
     `w-full p-3 rounded-lg border outline-none transition duration-200
@@ -120,11 +110,7 @@ const HomePage = () => {
     focus:ring-2 focus:ring-black/10 dark:focus:ring-white/10
     focus:border-black dark:focus:border-white
     dark:[color-scheme:dark]
-    ${
-      error
-        ? "border-red-500 focus:ring-red-400"
-        : ""
-    }`;
+    ${error ? "border-red-500 focus:ring-red-400" : ""}`;
 
   useEffect(() => {
     if (isModalOpen) {
@@ -181,7 +167,6 @@ const HomePage = () => {
             onSubmit={handleSubmit(onSubmit)}
             className="grid grid-cols-1 md:grid-cols-2 gap-4"
           >
-
             {/* Name */}
 
             <div>
@@ -318,7 +303,6 @@ const HomePage = () => {
             >
               {isSubmitting ? "Reserving..." : "Reserve Table"}
             </button>
-
           </form>
         </div>
       </Modal>

@@ -160,7 +160,7 @@ const Settings = () => {
         </p>
       </div>
 
-      <div className="max-w-7xl bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
+      <div className="max-w-8xl bg-white dark:bg-[#111111] border border-gray-200 dark:border-gray-700 p-6 rounded-lg shadow">
 
         {/* TOGGLE SETTINGS */}
 
@@ -175,7 +175,7 @@ const Settings = () => {
                 description="Show booking alerts inside dashboard"
                 checked={settings.notifications}
                 onChange={() => toggle("notifications")}
-                 className='dark:text-white'
+                 className='dark:text-white '
               />
             </div>
           </div>

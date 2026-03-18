@@ -3,39 +3,34 @@ import { FiBell, FiUser } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [pendingCount, setPendingCount] = useState(0);
 
- useEffect(() => {
+  useEffect(() => {
+    const loadData = () => {
+      const savedProfile = JSON.parse(localStorage.getItem("profile"));
+      if (savedProfile) {
+        setUser(savedProfile);      }
 
-  const loadData = () => {
+      const reservations =
+        JSON.parse(localStorage.getItem("reservations")) || [];
 
-    const savedProfile = JSON.parse(localStorage.getItem("profile"));
-    if (savedProfile) {
-      setUser(savedProfile);
-    }
+      const pendingReservations = reservations.filter(
+        (r) => r.status === "Pending" || r.status === "pending",
+      );
 
-    const reservations =
-      JSON.parse(localStorage.getItem("reservations")) || [];
+      setPendingCount(pendingReservations.length);
+    };
 
-    const pendingReservations = reservations.filter(
-      (r) => r.status === "Pending" || r.status === "pending"
-    );
+    loadData();
 
-    setPendingCount(pendingReservations.length);
+    window.addEventListener("storage", loadData);
 
-  };
-
-  loadData();
-
-  window.addEventListener("storage", loadData);
-
-  return () => {
-    window.removeEventListener("storage", loadData);
-  };
-
-}, []);
+    return () => {
+      window.removeEventListener("storage", loadData);
+    };
+  }, []);
 
   return (
     <header className="w-full h-16 flex items-center justify-between px-6 border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-black">
@@ -44,7 +39,10 @@ const Header = () => {
       </h1>
 
       <div className="flex items-center gap-6">
-        <button onClick={() => navigate('/adminPanel/reservationManagement')} className="relative text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition">
+        <button
+          onClick={() => navigate("/adminPanel/reservationManagement")}
+          className="relative text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition"
+        >
           <FiBell size={20} />
 
           {pendingCount > 0 && (
@@ -68,8 +66,10 @@ const Header = () => {
           </div>
 
           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-            <h1>Admin</h1>
-            {user?.name || "Admin"}
+            <h1>Manager</h1>
+            {user?.firstName
+              ? `${user.firstName} ${user.lastName || ""}`
+              : "Admin"}
           </span>
         </div>
       </div>
