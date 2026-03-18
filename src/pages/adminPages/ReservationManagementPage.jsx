@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Table from "../../components/ui/Table";
+import Table from "../../components/ui/Table"
 import Dropdown from "../../components/ui/Dropdown";
 
 const Admin = () => {

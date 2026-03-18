@@ -1,7 +1,12 @@
-import React,{useState} from 'react'
+import React, { useState } from "react";
 
-const Toggle = ({ label, description, checked = false, onChange ,className}) => {
-
+const Toggle = ({
+  label,
+  description,
+  checked = false,
+  onChange,
+  className,
+}) => {
   const [enabled, setEnabled] = useState(checked);
 
   const handleToggle = () => {
@@ -11,17 +16,10 @@ const Toggle = ({ label, description, checked = false, onChange ,className}) => 
 
   return (
     <div className="flex items-center justify-between">
-
       <div>
-        <p className={`text-gray-800 font-medium ${className}`}>
-          {label}
-        </p>
+        <p className={`text-gray-800 font-medium ${className}`}>{label}</p>
 
-        {description && (
-          <p className="text-sm text-gray-500">
-            {description}
-          </p>
-        )}
+        {description && <p className="text-sm text-gray-500">{description}</p>}
       </div>
 
       <button
@@ -30,18 +28,14 @@ const Toggle = ({ label, description, checked = false, onChange ,className}) => 
           enabled ? "bg-green-500" : "bg-gray-300"
         }`}
       >
-
         <span
           className={`bg-white w-5 h-5 rounded-full shadow transform transition ${
             enabled ? "translate-x-6" : "translate-x-1"
           }`}
         />
-
       </button>
-
     </div>
   );
 };
 
-
-export default Toggle
+export default Toggle;
